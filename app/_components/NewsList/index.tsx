@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Box, Card, CardMedia, CardContent, Grid, Typography } from "@mui/material";
 
-import styles from "./index.module.css";
 import Category from "../Category";
 import Date from "../Date";
 import { News } from "@/app/_libs/microcms";
@@ -12,40 +12,80 @@ type Props = {
 
 export default function NewsList({ news }: Props) {
     if (news.length === 0) {
-        return <p>記事がありません。</p>;
+        return <Typography>記事がありません。</Typography>;
     }
     return (
-        <ul>
+        <Grid container spacing={3}>
             {news.map((article) => (
-                <li key={article.id} className={styles.List}>
-                    <Link href={`/news/${article.id}`} className={styles.link}>
-                        {article.thumbnail ? (
-                            <Image
-                                src={article.thumbnail.url}
-                                alt=""
-                                className={styles.thumbnail}
-                                width={article.thumbnail.width}
-                                height={article.thumbnail.height}
-                            />
-                        ) : (
-                            <Image
-                                className={styles.image}
-                                src="/no-image.png"
-                                alt="No Image"
-                                width={1200}
-                                height={630}
-                            />
-                        )}
-                        <dl className={styles.content}>
-                            <dt className={styles.title}>{article.title}</dt>
-                            <dd className={styles.meta}>
-                                <Category category={article.category} />
+                <Grid item xs={12} sm={6} md={4} key={article.id}>
+                    <Card
+                        sx={{
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateY(-8px)',
+                                boxShadow: 4,
+                            },
+                            cursor: 'pointer',
+                        }}
+                        component={Link}
+                        href={`/news/${article.id}`}
+                    >
+                        <CardMedia
+                            sx={{
+                                height: 200,
+                                position: 'relative',
+                                backgroundColor: '#f0f0f0',
+                            }}
+                        >
+                            {article.thumbnail ? (
+                                <Image
+                                    src={article.thumbnail.url}
+                                    alt=""
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                />
+                            ) : (
+                                <Image
+                                    src="/no-image.png"
+                                    alt="No Image"
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                />
+                            )}
+                        </CardMedia>
+                        <CardContent sx={{ flexGrow: 1, pb: 1 }}>
+                            <Typography
+                                variant="h6"
+                                component="h3"
+                                sx={{
+                                    fontWeight: 'bold',
+                                    mb: 1,
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: 2,
+                                }}
+                            >
+                                {article.title}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 1,
+                                    flexWrap: 'wrap',
+                                }}
+                            >
+                                {article.category && <Category category={article.category} />}
                                 {article.publishedAt && <Date date={article.publishedAt} />}
-                            </dd>
-                        </dl>
-                    </Link>
-                </li>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                </Grid>
             ))}
-        </ul>
+        </Grid>
     );
 }

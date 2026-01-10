@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
+import ThemeWrapper from "./_components/ThemeWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
@@ -28,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <ThemeWrapper>
+          <Header />
+          {children}
+          <Footer />
+        </ThemeWrapper>
       </body>
     </html>
   );
