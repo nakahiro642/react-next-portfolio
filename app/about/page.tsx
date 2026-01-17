@@ -17,6 +17,7 @@ export default async function About() {
     <>
       {/* Hero Section */}
       <Box
+        suppressHydrationWarning
         sx={{
           position: 'relative',
           height: { xs: '180px', sm: '220px', md: '280px' },
