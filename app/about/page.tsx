@@ -618,26 +618,6 @@ export default function About() {
                       height: '100%',
                     }}
                   >
-                    {hobby.image && (
-                      <Box
-                        sx={{
-                          fontSize: '2.5rem',
-                          mb: 2,
-                          display: 'inline-block',
-                        }}
-                      >
-                        <img
-                          src={hobby.image.url}
-                          alt={hobby.name}
-                          style={{
-                            width: '40px',
-                            height: '40px',
-                            objectFit: 'cover',
-                            borderRadius: '4px',
-                          }}
-                        />
-                      </Box>
-                    )}
                     <Typography
                       variant="h6"
                       sx={{
@@ -652,10 +632,32 @@ export default function About() {
                     <Typography
                       variant="body2"
                       color="textSecondary"
-                      sx={{ lineHeight: 1.8 }}
+                      sx={{ lineHeight: 1.8, mb: 2 }}
                     >
                       {hobby.description}
                     </Typography>
+
+                    {hobby.image && (
+                      <Box
+                        sx={{
+                          mt: 2,
+                          display: 'flex',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img
+                          src={hobby.image.url}
+                          alt={hobby.name}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            maxHeight: '200px',
+                            objectFit: 'cover',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </Box>
+                    )}
                   </Card>
                 </Box>
               );
