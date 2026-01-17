@@ -30,6 +30,12 @@ export type Portfolio = {
     link?: string;
 } & MicroCMSListContent;
 
+export type Hobby = {
+    name: string;
+    description: string;
+    image?: MicroCMSImage;
+} & MicroCMSListContent;
+
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
     throw new Error("MICROCMS_SERVICE_DOMAIN is required");
 }
@@ -90,6 +96,26 @@ export const getPortfolioList = async (queries?: MicroCMSQueries): Promise<Micro
     try {
         return await client.getList<Portfolio>({
             endpoint: "portfolios",
+            queries: { limit: 100, ...queries },
+            customRequestInit: {
+                next: {
+                    revalidate: queries?.draftKey === undefined ? 60 : 0,
+                },
+            },
+        });
+    } catch (error) {
+        return {
+            contents: [],
+            totalCount: 0,
+            offset: 0,
+            limit: queries?.limit ?? 0,
+        };
+    }
+};
+export const getHobbyList = async (queries?: MicroCMSQueries): Promise<MicroCMSListResponse<Hobby>> => {
+    try {
+        return await client.getList<Hobby>({
+            endpoint: "hobbies",
             queries: { limit: 100, ...queries },
             customRequestInit: {
                 next: {
