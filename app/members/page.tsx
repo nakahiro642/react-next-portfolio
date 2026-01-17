@@ -134,23 +134,27 @@ export default async function Members() {
                 {item.description}
               </Typography>
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 1,
-                }}
-              >
-                {item.technologies.map((tech) => (
-                  <Chip
-                    key={tech}
-                    label={tech}
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                  />
-                ))}
-              </Box>
+              {item.link && (
+                <Box
+                  sx={{
+                    mt: 'auto',
+                  }}
+                >
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: '#5f6ef4',
+                      textDecoration: 'none',
+                      fontWeight: 500,
+                      fontSize: '0.875rem',
+                    }}
+                  >
+                    プロジェクトを見る →
+                  </a>
+                </Box>
+              )}
             </Card>
           ))}
         </Box>

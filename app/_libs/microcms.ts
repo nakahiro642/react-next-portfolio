@@ -27,9 +27,7 @@ export type AboutProfile = {
 export type Portfolio = {
     title: string;
     description: string;
-    technologies: string[];
     link?: string;
-    thumbnail?: MicroCMSImage;
 } & MicroCMSListContent;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
