@@ -3,6 +3,7 @@ import type {
     MicroCMSQueries,
     MicroCMSImage,
     MicroCMSListContent,
+    MicroCMSListResponse,
 } from "microcms-js-sdk";
 
 export type Member = {
@@ -87,14 +88,23 @@ export const getAboutProfile = async (queries?: MicroCMSQueries) => {
     });
 };
 
-export const getPortfolioList = async (queries?: MicroCMSQueries) => {
-    return await client.getList<Portfolio>({
-        endpoint: "portfolios",
-        queries: { limit: 100, ...queries },
-        customRequestInit: {
-            next: {
-                revalidate: queries?.draftKey === undefined ? 60 : 0,
+export const getPortfolioList = async (queries?: MicroCMSQueries): Promise<MicroCMSListResponse<Portfolio>> => {
+    try {
+        return await client.getList<Portfolio>({
+            endpoint: "portfolios",
+            queries: { limit: 100, ...queries },
+            customRequestInit: {
+                next: {
+                    revalidate: queries?.draftKey === undefined ? 60 : 0,
+                },
             },
-        },
-    });
+        });
+    } catch (error) {
+        return {
+            contents: [],
+            totalCount: 0,
+            offset: 0,
+            limit: queries?.limit ?? 0,
+        };
+    }
 };
