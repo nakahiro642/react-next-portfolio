@@ -1,21 +1,38 @@
 .button {
-  display: block;
-  padding: 20px 40px;
-  border-radius: var(--border-radius);
-  width: 300px;
-  background:
-  url("/arrow-right.svg") no-repeat right 20px center,
-  var(--color-button-primary);
-  color:var(--color-text-unpainted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  background-color: #6200ea;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
 }
 
 .button:hover {
-  opacity: 0.9;
+  background-color: #3700b3;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.button:active {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 @media (max-width: 640px) {
     .button {
-        padding: 16px 24px;
         width: 100%;
     }
 }

@@ -51,7 +51,16 @@ export async function createContactData(_prevState: any, formData: FormData) {
         };
     }
 
-    const result = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${process.env.HUBSPOT_PORTAL_ID}/${process.env.HUSPOT_FORM_ID}`, {
+    // 環境変数の確認
+    if (!process.env.HUBSPOT_PORTAL_ID || !process.env.HUBSPOT_FORM_ID) {
+        console.error("HubSpot環境変数が設定されていません");
+        return {
+            status: "error",
+            message: "申し訳ございません。サーバー設定に問題があります。",
+        };
+    }
+
+    const result = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${process.env.HUBSPOT_PORTAL_ID}/${process.env.HUBSPOT_FORM_ID}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -86,6 +95,16 @@ export async function createContactData(_prevState: any, formData: FormData) {
         ],
         }),
     });
+
+    if (!result.ok) {
+        const errorData = await result.text().catch(() => "テキスト取得失敗");
+        console.error(`HubSpot API error: ${result.status} ${result.statusText}`);
+        console.error("Response:", errorData);
+        return {
+            status: "error",
+            message: "お問い合わせに失敗しました",
+        };
+    }
 
     try {
         await result.json();

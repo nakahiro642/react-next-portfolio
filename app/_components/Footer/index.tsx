@@ -7,17 +7,14 @@ export default function Footer() {
             <nav className={styles.nav}>
                 <ul className={styles.items}>
                     <li className={styles.item}>
-                        <Link href="/news">ニュース</Link>
-                    </li>
-                    <li className={styles.item}>
-                        <Link href="/members">メンバー</Link>
+                        <Link href="/members">Portfolio</Link>
                     </li>
                     <li className={styles.item}>
                         <Link href="/contact">お問い合わせ</Link>
                     </li>
                 </ul>
             </nav>
-            <p className={styles.cr}>© SIMPLE. All rights reserved 2024</p>
+            <p className={styles.cr}>© 2026 PORTFOLIO. All rights reserved.</p>
         </footer>
     );
 }

@@ -1,11 +1,8 @@
-'use client';
-
 import {
   Container,
   Box,
   Typography,
   Card,
-  Grid,
   Chip,
 } from '@mui/material';
 import {
@@ -17,53 +14,90 @@ import {
   TimelineDot,
 } from '@mui/lab';
 import SchoolIcon from '@mui/icons-material/School';
-import WorkIcon from '@mui/icons-material/Work';
 import CodeIcon from '@mui/icons-material/Code';
+import { getAboutProfile } from '../_libs/microcms';
 
-export default function About() {
+export default async function About() {
+  const { contents } = await getAboutProfile();
+  const aboutData = contents && contents.length > 0 ? contents[0] : null;
+
   return (
     <>
       {/* Hero Section */}
       <Box
         sx={{
           position: 'relative',
-          height: { xs: '200px', sm: '250px', md: '300px' },
+          height: { xs: '180px', sm: '220px', md: '280px' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #06b6d4 100%)',
+          background: 'linear-gradient(135deg, #5f6ef4 0%, #02bcd4 100%)',
           color: 'white',
-          mb: 4,
+          mb: 6,
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+          borderRadius: '12px',
+          mt: 4,
         }}
       >
         <Box sx={{ textAlign: 'center', zIndex: 1 }}>
           <Typography
-            variant="h3"
+            variant="h2"
             component="h1"
             sx={{
-              fontWeight: 'bold',
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+              fontWeight: 400,
+              letterSpacing: '-0.015625rem',
+              fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+              animation: 'slideInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+              '@keyframes slideInDown': {
+                'from': {
+                  opacity: 0,
+                  transform: 'translateY(-20px)',
+                },
+                'to': {
+                  opacity: 1,
+                  transform: 'translateY(0)',
+                },
+              },
             }}
           >
             About
           </Typography>
           <Typography
-            variant="h5"
-            sx={{ mt: 1, opacity: 0.95 }}
+            variant="h4"
+            component="p"
+            sx={{
+              mt: 1,
+              fontWeight: 300,
+              letterSpacing: '0.03125rem',
+              opacity: 0.95,
+              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+              animation: 'slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both',
+              '@keyframes slideInUp': {
+                'from': {
+                  opacity: 0,
+                  transform: 'translateY(20px)',
+                },
+                'to': {
+                  opacity: 1,
+                  transform: 'translateY(0)',
+                },
+              },
+            }}
           >
-            my profile
+            私について詳しく
           </Typography>
         </Box>
       </Box>
 
-      <Container maxWidth="lg" sx={{ pb: 8 }}>
+      <Container maxWidth="lg" sx={{ pb: 8, pt: 4 }}>
         {/* Profile Section */}
         <Box sx={{ mb: 8 }}>
           <Typography
             variant="h4"
             component="h2"
             sx={{
-              fontWeight: 'bold',
+              fontWeight: 500,
+              letterSpacing: '0.0125rem',
               mb: 4,
               color: 'primary.main',
               display: 'flex',
@@ -79,23 +113,51 @@ export default function About() {
                 borderRadius: 1,
               }}
             />
-            プロフィール
+            私について詳しく
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              lineHeight: 1.8,
+              mb: 4,
+              fontSize: '1rem',
+            }}
+          >
+            プロフィール、経歴、学習内容についてご紹介します。
           </Typography>
 
           <Card
             sx={{
               p: 4,
-              boxShadow: 2,
+              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
               backgroundColor: 'background.paper',
+              borderRadius: 3,
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              '&:hover': {
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                transform: 'translateY(-2px)',
+              },
             }}
           >
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12} sm={4} sx={{ textAlign: 'center' }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  sm: '1fr 2fr',
+                },
+                gap: 4,
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ textAlign: 'center' }}>
                 <Box
                   sx={{
                     width: '200px',
                     height: '200px',
-                    bgcolor: '#e0e0e0',
+                    bgcolor: '#f5f5f5',
                     borderRadius: '50%',
                     mx: 'auto',
                     display: 'flex',
@@ -103,25 +165,37 @@ export default function About() {
                     justifyContent: 'center',
                     fontSize: '3rem',
                     fontWeight: 'bold',
-                    color: '#999',
+                    color: '#bdbdbd',
                     mb: 2,
+                    transition: 'all 0.2s ease',
                   }}
                 >
-                  📷
+                  {aboutData?.image?.url ? (
+                    <Box
+                      component="img"
+                      src={aboutData.image.url}
+                      alt={aboutData.name}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    '📷'
+                  )}
                 </Box>
-                <Typography variant="body2" color="textSecondary">
-                  写真をここに置く予定
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={8}>
+              </Box>
+              <Box>
                 <Typography
                   variant="h5"
                   sx={{
-                    fontWeight: 'bold',
+                    fontWeight: 500,
                     mb: 1,
                   }}
                 >
-                  中島 央貴 / Nakashima Hiroki
+                  {aboutData?.name || '名前'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -131,7 +205,7 @@ export default function About() {
                     mb: 2,
                   }}
                 >
-                  フロントエンドエンジニア / Web開発者
+                  {aboutData?.position || '職種'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -141,30 +215,10 @@ export default function About() {
                     color: 'text.secondary',
                   }}
                 >
-                  京都テクノロジー&デザイン専門学校に在籍している1年生の学生です。
+                  {aboutData?.bio || 'プロフィール'}
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip
-                    label="React"
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                  />
-                  <Chip
-                    label="Next.js"
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                  />
-                  <Chip
-                    label="TypeScript"
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                  />
-                </Box>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </Card>
         </Box>
 
@@ -174,7 +228,8 @@ export default function About() {
             variant="h4"
             component="h2"
             sx={{
-              fontWeight: 'bold',
+              fontWeight: 500,
+              letterSpacing: '0.0125rem',
               mb: 4,
               color: 'primary.main',
               display: 'flex',
@@ -199,47 +254,129 @@ export default function About() {
               <TimelineSeparator>
                 <TimelineDot
                   sx={{
-                    bgcolor: '#6366f1',
-                    width: 48,
-                    height: 48,
-                    boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                    bgcolor: '#5f6ef4',
                   }}
                 >
                   <SchoolIcon />
                 </TimelineDot>
-                <TimelineConnector sx={{ bgcolor: '#e5e7eb' }} />
+                <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent sx={{ py: 3 }}>
-                <Card sx={{ 
-                  p: 3,
-                  borderLeft: '4px solid #6366f1',
-                  '&:hover': {
-                    boxShadow: '0 8px 24px rgba(99, 102, 241, 0.15)',
-                    transform: 'translateY(-2px)',
-                  },
-                }}>
-                  <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold' }}>
-                    京都テクノロジー&デザイン専門学校 入学
-                  </Typography>
-                  <Typography variant="body2" color="primary" sx={{ fontWeight: 600, mb: 1 }}>
-                    2025年4月 ~ 現在
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    日々いろんな技術を学びながら、エンジニアとして成長中。
-                  </Typography>
-                </Card>
+              <TimelineContent
+                sx={{
+                  mb: 4,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    color: '#5f6ef4',
+                  }}
+                >
+                  京都テクノロジー&デザイン専門学校入学
+                </Typography>
+                <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>
+                  2025年4月
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    lineHeight: 1.8,
+                    color: 'text.secondary',
+                  }}
+                >
+                  ITプログラマー専攻に所属。 Web開発の基礎などを学び始めました。
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+
+            {/* Entry 2 */}
+            <TimelineItem>
+              <TimelineSeparator>
+                <TimelineDot
+                  sx={{
+                    bgcolor: '#02bcd4',
+                  }}
+                >
+                  <CodeIcon />
+                </TimelineDot>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent
+                sx={{
+                  mb: 4,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    color: '#02bcd4',
+                  }}
+                >
+                  HTML/CSSの学習完了
+                </Typography>
+                <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>
+                  2025年10月
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    lineHeight: 1.8,
+                    color: 'text.secondary',
+                  }}
+                >
+                  基本的なHTML/CSSスキルを習得しました。
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+
+            {/* Entry 3 */}
+            <TimelineItem>
+              <TimelineSeparator>
+                <TimelineDot
+                  sx={{
+                    bgcolor: '#4caf50',
+                  }}
+                >
+                  <CodeIcon />
+                </TimelineDot>
+              </TimelineSeparator>
+              <TimelineContent>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    color: '#4caf50',
+                  }}
+                >
+                  TypeScriptとReactの学習進行中
+                </Typography>
+                <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>
+                  2025年10月〜現在
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    lineHeight: 1.8,
+                    color: 'text.secondary',
+                  }}
+                >
+                  TypeScript、React、Next.jsを学習中。
+                </Typography>
               </TimelineContent>
             </TimelineItem>
           </Timeline>
         </Box>
 
-        {/* Hobbies Section */}
+        {/* Learning & Development */}
         <Box sx={{ mb: 8 }}>
           <Typography
             variant="h4"
             component="h2"
             sx={{
-              fontWeight: 'bold',
+              fontWeight: 500,
+              letterSpacing: '0.0125rem',
               mb: 4,
               color: 'primary.main',
               display: 'flex',
@@ -255,126 +392,121 @@ export default function About() {
                 borderRadius: 1,
               }}
             />
-            趣味
+            学習内容・技術
           </Typography>
 
-          <Grid container spacing={4}>
-
-            {/* Hobby 1 - ゲーム */}
-            <Grid item xs={12} lg={6}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 4, 
-                textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%)',
-                borderTop: '6px solid #ec4899',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100px',
-                  height: '100px',
-                  background: 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%)',
-                  borderRadius: '50%',
-                },
-                '&:hover': {
-                  boxShadow: '0 12px 32px rgba(236, 72, 153, 0.25)',
-                  transform: 'translateY(-6px)',
-                },
-              }}>
-                <Box sx={{ fontSize: '4.5rem', mb: 2, position: 'relative', zIndex: 1 }}>🎮</Box>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  ゲーム
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                lg: '1fr 1fr',
+              },
+              gap: 4,
+            }}
+          >
+            <Box>
+              <Card
+                sx={{
+                  p: 3,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                  backgroundColor: '#fafafa',
+                  borderLeft: '4px solid #5f6ef4',
+                  borderRadius: 3,
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    mb: 2,
+                    color: '#5f6ef4',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <CodeIcon fontSize="small" />
+                  最新のWeb技術
                 </Typography>
-                <Typography variant="body1" color="textSecondary" sx={{ lineHeight: 1.8 }}>
-                  上達することが好きで、特にアクションゲームを好みます。
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.8,
+                    mb: 2,
+                  }}
+                >
+                  React、Next.js、TypeScriptなどの最新のフロントエンド技術を学習中です。
                 </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  <Chip label="React" size="small" />
+                  <Chip label="Next.js" size="small" />
+                  <Chip label="TypeScript" size="small" />
+                </Box>
               </Card>
-            </Grid>
-
-            {/* Hobby 2 - 睡眠 */}
-            <Grid item xs={12} lg={6}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 4, 
-                textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%)',
-                borderTop: '6px solid #06b6d4',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100px',
-                  height: '100px',
-                  background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%)',
-                  borderRadius: '50%',
-                },
-                '&:hover': {
-                  boxShadow: '0 12px 32px rgba(6, 182, 212, 0.25)',
-                  transform: 'translateY(-6px)',
-                },
-              }}>
-                <Box sx={{ fontSize: '4.5rem', mb: 2, position: 'relative', zIndex: 1 }}>😴</Box>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  睡眠
+            </Box>
+            <Box>
+              <Card
+                sx={{
+                  p: 3,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                  backgroundColor: '#fafafa',
+                  borderLeft: '4px solid #02bcd4',
+                  borderRadius: 3,
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    mb: 2,
+                    color: '#02bcd4',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <CodeIcon fontSize="small" />
+                  スキル・技術
                 </Typography>
-                <Typography variant="body1" color="textSecondary" sx={{ lineHeight: 1.8 }}>
-                  時間を気にせず寝るのが好きです。
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.8,
+                    mb: 2,
+                  }}
+                >
+                  HTMLやcssを学び、基礎的なWeb制作スキルを習得。
                 </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  <Chip label="HTML" size="small" />
+                  <Chip label="CSS" size="small" />
+                </Box>
               </Card>
-            </Grid>
-
-            {/* Hobby 3 - 音楽制作 */}
-            <Grid item xs={12} lg={6}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 4, 
-                textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%)',
-                borderTop: '6px solid #f59e0b',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '100px',
-                  height: '100px',
-                  background: 'radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%)',
-                  borderRadius: '50%',
-                },
-                '&:hover': {
-                  boxShadow: '0 12px 32px rgba(245, 158, 11, 0.25)',
-                  transform: 'translateY(-6px)',
-                },
-              }}>
-                <Box sx={{ fontSize: '4.5rem', mb: 2, position: 'relative', zIndex: 1 }}>🎵</Box>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  音楽
-                </Typography>
-
-                <Typography variant="body1" color="textSecondary" sx={{ lineHeight: 1.8 }}>
-                  邦楽を中心にいろんな音楽を聴きます。
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Box>
 
-        {/* Skills Section */}
-        <Box>
+        {/* Skills & Expertise Grid */}
+        <Box sx={{ mb: 8 }}>
           <Typography
             variant="h4"
             component="h2"
             sx={{
-              fontWeight: 'bold',
+              fontWeight: 500,
+              letterSpacing: '0.0125rem',
               mb: 4,
               color: 'primary.main',
               display: 'flex',
@@ -390,99 +522,128 @@ export default function About() {
                 borderRadius: 1,
               }}
             />
-            スキル
+            興味・趣味
           </Typography>
 
-          <Grid container spacing={3}>
-            {/* Frontend */}
-            <Grid item xs={12} sm={6} lg={4}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 3,
-                borderLeft: '4px solid #6366f1',
-              }}>
-                <Box
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: '1fr 1fr',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: 3,
+            }}
+          >
+            <Box>
+              <Card
+                sx={{
+                  p: 3,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                  backgroundColor: '#fafafa',
+                  borderRadius: 3,
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                    transform: 'translateY(-2px)',
+                  },
+                  height: '100%',
+                }}
+              >
+                <Typography
+                  variant="h6"
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
+                    fontWeight: 500,
                     mb: 2,
+                    color: 'primary.main',
                   }}
                 >
-                  <CodeIcon sx={{ fontSize: 32, color: '#6366f1' }} />
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6366f1' }}>
-                    フロントエンド
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  <Chip label="HTML/CSS" size="small" />
-                  <Chip label="JavaScript" size="small" />
-                  <Chip label="TypeScript" size="small" color="primary" />
-                  <Chip label="React" size="small" color="primary" />
-                  <Chip label="Next.js" size="small" color="primary" />
-                </Box>
-              </Card>
-            </Grid>
+                  🎮 ゲーム
+                </Typography>
 
-            {/* Styling */}
-            <Grid item xs={12} sm={6} lg={4}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 3,
-                borderLeft: '4px solid #ec4899',
-              }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
-                    mb: 2,
-                  }}
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  sx={{ lineHeight: 1.8 }}
                 >
-                  <CodeIcon sx={{ fontSize: 32, color: '#ec4899' }} />
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#ec4899' }}>
-                    スタイリング
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  <Chip label="CSS Modules" size="small" />
-                  <Chip label="Tailwind CSS" size="small" />
-                  <Chip label="MUI" size="small" color="primary" />
-                  <Chip label="Sass/SCSS" size="small" />
-                </Box>
+                  いろんなジャンルのゲームをプレイします。
+                </Typography>
               </Card>
-            </Grid>
+            </Box>
 
-            {/* Tools */}
-            <Grid item xs={12} sm={6} lg={4}>
-              <Card sx={{ 
-                height: '100%', 
-                p: 3,
-                borderLeft: '4px solid #06b6d4',
-              }}>
-                <Box
+            <Box>
+              <Card
+                sx={{
+                  p: 3,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                  backgroundColor: '#fafafa',
+                  borderRadius: 3,
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                    transform: 'translateY(-2px)',
+                  },
+                  height: '100%',
+                }}
+              >
+                <Typography
+                  variant="h6"
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
+                    fontWeight: 500,
                     mb: 2,
+                    color: 'primary.main',
                   }}
                 >
-                  <CodeIcon sx={{ fontSize: 32, color: '#06b6d4' }} />
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#06b6d4' }}>
-                    ツール・環境
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  <Chip label="Git" size="small" />
-                  <Chip label="GitHub" size="small" />
-                  <Chip label="VS Code" size="small" />
-                  <Chip label="npm" size="small" />
-                  <Chip label="Vercel" size="small" />
-                </Box>
+                  🛏️ 睡眠
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  sx={{ lineHeight: 1.8 }}
+                >
+                  休日は良く寝ています。
+                </Typography>
               </Card>
-            </Grid>
-          </Grid>
+            </Box>
+
+            <Box>
+              <Card
+                sx={{
+                  p: 3,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                  backgroundColor: '#fafafa',
+                  borderRadius: 3,
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                    transform: 'translateY(-2px)',
+                  },
+                  height: '100%',
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 500,
+                    mb: 2,
+                    color: 'primary.main',
+                  }}
+                >
+                  🎵 音楽
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  sx={{ lineHeight: 1.8 }}
+                >
+                  邦楽を中心にいろんな音楽を聴きます。
+                </Typography>
+              </Card>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </>
