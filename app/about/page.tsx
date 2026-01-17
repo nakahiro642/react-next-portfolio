@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import {
   Container,
   Box,
@@ -7,11 +10,57 @@ import {
 } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import CodeIcon from '@mui/icons-material/Code';
-import { getAboutProfile } from '../_libs/microcms';
 
-export default async function About() {
-  const { contents } = await getAboutProfile();
-  const aboutData = contents && contents.length > 0 ? contents[0] : null;
+interface AboutProfile {
+  id: string;
+  name: string;
+  position: string;
+  bio: string;
+  image?: {
+    url: string;
+    width: number;
+    height: number;
+  };
+}
+
+interface Hobby {
+  id: string;
+  name: string;
+  description: string;
+  image?: {
+    url: string;
+    width: number;
+    height: number;
+  };
+}
+
+export default function About() {
+  const [aboutData, setAboutData] = useState<AboutProfile | null>(null);
+  const [hobbies, setHobbies] = useState<Hobby[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [profileRes, hobbiesRes] = await Promise.all([
+          fetch('/api/about-profile'),
+          fetch('/api/hobbies'),
+        ]);
+        
+        const profileData = await profileRes.json();
+        const hobbiesData = await hobbiesRes.json();
+        
+        setAboutData(profileData.contents?.[0] || null);
+        setHobbies(hobbiesData.contents || []);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -546,146 +595,71 @@ export default async function About() {
               gap: 3,
             }}
           >
-            <Box>
-              <Card
-                sx={{
-                  p: 3,
-                  background: 'linear-gradient(135deg, rgba(95, 110, 244, 0.08) 0%, rgba(95, 110, 244, 0.02) 100%)',
-                  border: '1px solid rgba(95, 110, 244, 0.1)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                  borderRadius: 3,
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  '&:hover': {
-                    boxShadow: '0 8px 16px rgba(95, 110, 244, 0.2)',
-                    transform: 'translateY(-4px)',
-                    background: 'linear-gradient(135deg, rgba(95, 110, 244, 0.12) 0%, rgba(95, 110, 244, 0.06) 100%)',
-                  },
-                  height: '100%',
-                }}
-              >
-                <Box
-                  sx={{
-                    fontSize: '2.5rem',
-                    mb: 2,
-                    display: 'inline-block',
-                  }}
-                >
-                  🎮
+            {hobbies.map((hobby) => {
+              const colors = ['#5f6ef4', '#02bcd4', '#4caf50'];
+              const colorIndex = hobbies.indexOf(hobby) % colors.length;
+              const color = colors[colorIndex];
+              
+              return (
+                <Box key={hobby.id}>
+                  <Card
+                    sx={{
+                      p: 3,
+                      background: `linear-gradient(135deg, rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.08) 0%, rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.02) 100%)`,
+                      border: `1px solid rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.1)`,
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                      borderRadius: 3,
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      '&:hover': {
+                        boxShadow: `0 8px 16px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.2)`,
+                        transform: 'translateY(-4px)',
+                        background: `linear-gradient(135deg, rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.12) 0%, rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.06) 100%)`,
+                      },
+                      height: '100%',
+                    }}
+                  >
+                    {hobby.image && (
+                      <Box
+                        sx={{
+                          fontSize: '2.5rem',
+                          mb: 2,
+                          display: 'inline-block',
+                        }}
+                      >
+                        <img
+                          src={hobby.image.url}
+                          alt={hobby.name}
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            objectFit: 'cover',
+                            borderRadius: '4px',
+                          }}
+                        />
+                      </Box>
+                    )}
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 600,
+                        mb: 1,
+                        color: color,
+                      }}
+                    >
+                      {hobby.name}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{ lineHeight: 1.8 }}
+                    >
+                      {hobby.description}
+                    </Typography>
+                  </Card>
                 </Box>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 1,
-                    color: '#5f6ef4',
-                  }}
-                >
-                  ゲーム
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ lineHeight: 1.8 }}
-                >
-                  いろんなジャンルのゲームをプレイします。
-                </Typography>
-              </Card>
-            </Box>
-
-            <Box>
-              <Card
-                sx={{
-                  p: 3,
-                  background: 'linear-gradient(135deg, rgba(2, 188, 212, 0.08) 0%, rgba(2, 188, 212, 0.02) 100%)',
-                  border: '1px solid rgba(2, 188, 212, 0.1)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                  borderRadius: 3,
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  '&:hover': {
-                    boxShadow: '0 8px 16px rgba(2, 188, 212, 0.2)',
-                    transform: 'translateY(-4px)',
-                    background: 'linear-gradient(135deg, rgba(2, 188, 212, 0.12) 0%, rgba(2, 188, 212, 0.06) 100%)',
-                  },
-                  height: '100%',
-                }}
-              >
-                <Box
-                  sx={{
-                    fontSize: '2.5rem',
-                    mb: 2,
-                    display: 'inline-block',
-                  }}
-                >
-                  🛏️
-                </Box>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 1,
-                    color: '#02bcd4',
-                  }}
-                >
-                  睡眠
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ lineHeight: 1.8 }}
-                >
-                  休日は良く寝ています。
-                </Typography>
-              </Card>
-            </Box>
-
-            <Box>
-              <Card
-                sx={{
-                  p: 3,
-                  background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0.02) 100%)',
-                  border: '1px solid rgba(76, 175, 80, 0.1)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                  borderRadius: 3,
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  '&:hover': {
-                    boxShadow: '0 8px 16px rgba(76, 175, 80, 0.2)',
-                    transform: 'translateY(-4px)',
-                    background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.12) 0%, rgba(76, 175, 80, 0.06) 100%)',
-                  },
-                  height: '100%',
-                }}
-              >
-                <Box
-                  sx={{
-                    fontSize: '2.5rem',
-                    mb: 2,
-                    display: 'inline-block',
-                  }}
-                >
-                  🎵
-                </Box>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 1,
-                    color: '#4caf50',
-                  }}
-                >
-                  音楽
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ lineHeight: 1.8 }}
-                >
-                  邦楽を中心にいろんな音楽を聴きます。
-                </Typography>
-              </Card>
-            </Box>
+              );
+            })}
           </Box>
         </Box>
       </Container>
