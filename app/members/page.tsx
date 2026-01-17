@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import {
   Box,
   Typography,
@@ -14,8 +17,32 @@ import PaletteIcon from '@mui/icons-material/Palette';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import { getPortfolioList } from '../_libs/microcms';
 
-export default async function Members() {
-  const { contents: portfolioItems } = await getPortfolioList();
+interface Portfolio {
+  id: string;
+  title: string;
+  description: string;
+  link?: string;
+}
+
+export default function Members() {
+  const [portfolioItems, setPortfolioItems] = useState<Portfolio[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const { contents } = await getPortfolioList();
+        setPortfolioItems(contents || []);
+      } catch (error) {
+        console.error('Failed to fetch portfolio:', error);
+        setPortfolioItems([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPortfolio();
+  }, []);
 
   const frontendSkills = [
     { name: 'React', icon: <CodeIcon /> },
@@ -40,7 +67,7 @@ export default async function Members() {
 
   return (
     <>
-      <Box component="div" suppressHydrationWarning sx={{ maxWidth: 1200, margin: '0 auto', paddingBottom: 32, paddingTop: 16 }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', paddingBottom: 128, paddingTop: 64 }}>
         {/* Introduction Section */}
         <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
@@ -387,7 +414,7 @@ export default async function Members() {
             </Box>
           </Box>
         </Card>
-      </Box>
+      </div>
     </>
   );
 }
