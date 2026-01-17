@@ -103,7 +103,7 @@ export const getPortfolioList = async (queries?: MicroCMSQueries): Promise<Micro
                 },
             },
         });
-    } catch (error) {
+    } catch {
         return {
             contents: [],
             totalCount: 0,
@@ -123,7 +123,7 @@ export const getHobbyList = async (queries?: MicroCMSQueries): Promise<MicroCMSL
                 },
             },
         });
-    } catch (error) {
+    } catch {
         return {
             contents: [],
             totalCount: 0,

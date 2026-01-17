@@ -37,7 +37,6 @@ interface Hobby {
 export default function About() {
   const [aboutData, setAboutData] = useState<AboutProfile | null>(null);
   const [hobbies, setHobbies] = useState<Hobby[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +54,6 @@ export default function About() {
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
-        setIsLoading(false);
       }
     };
 
@@ -655,6 +653,7 @@ export default function About() {
                             objectFit: 'cover',
                             borderRadius: '8px',
                           }}
+                          suppressHydrationWarning
                         />
                       </Box>
                     )}

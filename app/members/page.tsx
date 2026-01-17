@@ -25,7 +25,6 @@ interface Portfolio {
 
 export default function Members() {
   const [portfolioItems, setPortfolioItems] = useState<Portfolio[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -37,7 +36,6 @@ export default function Members() {
         console.error('Failed to fetch portfolio:', error);
         setPortfolioItems([]);
       } finally {
-        setIsLoading(false);
       }
     };
 
