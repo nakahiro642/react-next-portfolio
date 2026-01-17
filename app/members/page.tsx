@@ -40,7 +40,7 @@ export default async function Members() {
 
   return (
     <>
-      <Box component="div" suppressHydrationWarning sx={{ maxWidth: 'lg', mx: 'auto', pb: 8, pt: 4 }}>
+      <Box component="div" suppressHydrationWarning sx={{ maxWidth: 1200, mx: 'auto', pb: 8, pt: 4 }}>
         {/* Introduction Section */}
         <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
