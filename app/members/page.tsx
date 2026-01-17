@@ -1,5 +1,4 @@
 import {
-  Container,
   Box,
   Typography,
   Card,
@@ -41,7 +40,7 @@ export default async function Members() {
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ pb: 8, pt: 4 }}>
+      <Box sx={{ maxWidth: 'lg', mx: 'auto', pb: 8, pt: 4 }}>
         {/* Introduction Section */}
         <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
@@ -384,7 +383,7 @@ export default async function Members() {
             </Box>
           </Box>
         </Card>
-      </Container>
+      </Box>
     </>
   );
 }
