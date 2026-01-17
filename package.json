@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^6.4.4",
+    "@mui/material": "^6.4.4",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "microcms-js-sdk": "^3.2.0",

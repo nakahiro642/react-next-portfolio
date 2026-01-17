@@ -2,7 +2,6 @@
 
 import { useActionState } from 'react';
 import {
-  Container,
   Box,
   Typography,
   Card,
@@ -18,30 +17,33 @@ export default function Contact() {
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ pb: 8, pt: 8 }}>
-        {/* Introduction Section */}
-        <Box sx={{ mb: 8 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '80vh',
+          py: 8,
+        }}
+      >
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '800px',
+            px: 2,
+          }}
+        >
           <Typography
             variant="h4"
             component="h1"
             sx={{
               fontWeight: 500,
               letterSpacing: '0.0125rem',
-              mb: 4,
+              mb: 2,
               color: 'primary.main',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
+              textAlign: 'center',
             }}
           >
-            <Box
-              sx={{
-                width: 4,
-                height: 32,
-                bgcolor: 'primary.main',
-                borderRadius: 1,
-              }}
-            />
             お問い合わせ
           </Typography>
 
@@ -51,21 +53,21 @@ export default function Contact() {
               color: 'text.secondary',
               lineHeight: 1.8,
               mb: 4,
-              fontSize: '1rem',
+              fontSize: '0.95rem',
+              textAlign: 'center',
             }}
           >
-            ご不明な点やご相談がありましたら、お気軽にお問い合わせください。内容確認後、できるだけ早くご返信いたします。
+            ご不明な点やご相談がありましたら、お気軽にお問い合わせください。
           </Typography>
-        </Box>
 
-        <Card
-          sx={{
-            p: 4,
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
-            backgroundColor: 'background.paper',
-            borderRadius: 3,
-          }}
-        >
+          <Card
+            sx={{
+              p: 4,
+              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+              backgroundColor: 'background.paper',
+              borderRadius: 3,
+            }}
+          >
             {state.status === 'success' && (
               <div className={styles.alert} style={{ borderLeftColor: '#10b981' }}>
                 <p>お問い合わせありがとうございます。ご連絡ありがとうございました。</p>
@@ -100,7 +102,7 @@ export default function Contact() {
                   required
                 />
               </div>
-
+              
               <div className={styles.inputGroup}>
                 <label htmlFor="company">会社名 *</label>
                 <input
@@ -141,8 +143,9 @@ export default function Contact() {
             <p className={styles.privacyNote}>
               ※ お送りいただきました個人情報は、お問い合わせの回答に使用させていただきます。
             </p>
-        </Card>
-      </Container>
+          </Card>
+        </Box>
+      </Box>
     </>
   );
 }

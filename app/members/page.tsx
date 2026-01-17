@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Container,
   Box,
@@ -15,31 +13,10 @@ import BuildIcon from '@mui/icons-material/Build';
 import StorageIcon from '@mui/icons-material/Storage';
 import PaletteIcon from '@mui/icons-material/Palette';
 import TerminalIcon from '@mui/icons-material/Terminal';
+import { getPortfolioList } from '../_libs/microcms';
 
-export default function Members() {
-  const portfolioItems = [
-    {
-      id: 1,
-      title: 'ポートフォリオサイト',
-      description: 'Next.js、React、TypeScriptを使用して作成した自己紹介サイト。',
-      technologies: ['Next.js', 'React', 'TypeScript', 'MUI'],
-      link: '#',
-    },
-    {
-      id: 2,
-      title: 'Todoアプリケーション',
-      description: '乞うご期待',
-      technologies: [],
-      link: '#',
-    },
-    {
-      id: 3,
-      title: '天気予報アプリ',
-      description: '乞うご期待',
-      technologies: [],
-      link: '#',
-    },
-  ];
+export default async function Members() {
+  const { contents: portfolioItems } = await getPortfolioList();
 
   const frontendSkills = [
     { name: 'React', icon: <CodeIcon /> },
@@ -66,7 +43,7 @@ export default function Members() {
     <>
       <Container maxWidth="lg" sx={{ pb: 8, pt: 4 }}>
         {/* Introduction Section */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"
@@ -180,7 +157,7 @@ export default function Members() {
         </Box>
 
         {/* Skills Section */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(2, 188, 212, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"

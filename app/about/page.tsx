@@ -5,14 +5,6 @@ import {
   Card,
   Chip,
 } from '@mui/material';
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from '@mui/lab';
 import SchoolIcon from '@mui/icons-material/School';
 import CodeIcon from '@mui/icons-material/Code';
 import { getAboutProfile } from '../_libs/microcms';
@@ -91,7 +83,7 @@ export default async function About() {
 
       <Container maxWidth="lg" sx={{ pb: 8, pt: 4 }}>
         {/* Profile Section */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"
@@ -223,7 +215,7 @@ export default async function About() {
         </Box>
 
         {/* Experience Section */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(2, 188, 212, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"
@@ -248,24 +240,28 @@ export default async function About() {
             経歴
           </Typography>
 
-          <Timeline position="right">
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {/* Entry 1 */}
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 0.5 }}>
+                <Box
                   sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
                     bgcolor: '#5f6ef4',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 6px rgba(95, 110, 244, 0.35)',
                   }}
                 >
                   <SchoolIcon />
-                </TimelineDot>
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent
-                sx={{
-                  mb: 4,
-                }}
-              >
+                </Box>
+                <Box sx={{ width: 2, flexGrow: 1, bgcolor: 'rgba(0,0,0,0.12)', mt: 1 }} />
+              </Box>
+              <Box>
                 <Typography
                   variant="h6"
                   sx={{
@@ -287,26 +283,30 @@ export default async function About() {
                 >
                   ITプログラマー専攻に所属。 Web開発の基礎などを学び始めました。
                 </Typography>
-              </TimelineContent>
-            </TimelineItem>
+              </Box>
+            </Box>
 
             {/* Entry 2 */}
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 0.5 }}>
+                <Box
                   sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
                     bgcolor: '#02bcd4',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 6px rgba(2, 188, 212, 0.35)',
                   }}
                 >
                   <CodeIcon />
-                </TimelineDot>
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent
-                sx={{
-                  mb: 4,
-                }}
-              >
+                </Box>
+                <Box sx={{ width: 2, flexGrow: 1, bgcolor: 'rgba(0,0,0,0.12)', mt: 1 }} />
+              </Box>
+              <Box>
                 <Typography
                   variant="h6"
                   sx={{
@@ -328,21 +328,29 @@ export default async function About() {
                 >
                   基本的なHTML/CSSスキルを習得しました。
                 </Typography>
-              </TimelineContent>
-            </TimelineItem>
+              </Box>
+            </Box>
 
             {/* Entry 3 */}
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 0.5 }}>
+                <Box
                   sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
                     bgcolor: '#4caf50',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 6px rgba(76, 175, 80, 0.35)',
                   }}
                 >
                   <CodeIcon />
-                </TimelineDot>
-              </TimelineSeparator>
-              <TimelineContent>
+                </Box>
+              </Box>
+              <Box>
                 <Typography
                   variant="h6"
                   sx={{
@@ -364,13 +372,13 @@ export default async function About() {
                 >
                   TypeScript、React、Next.jsを学習中。
                 </Typography>
-              </TimelineContent>
-            </TimelineItem>
-          </Timeline>
+              </Box>
+            </Box>
+          </Box>
         </Box>
 
         {/* Learning & Development */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(76, 175, 80, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"
@@ -500,7 +508,7 @@ export default async function About() {
         </Box>
 
         {/* Skills & Expertise Grid */}
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 8, p: 4, bgcolor: 'rgba(95, 110, 244, 0.04)', borderRadius: 2 }}>
           <Typography
             variant="h4"
             component="h2"
@@ -540,30 +548,41 @@ export default async function About() {
               <Card
                 sx={{
                   p: 3,
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
-                  backgroundColor: '#fafafa',
+                  background: 'linear-gradient(135deg, rgba(95, 110, 244, 0.08) 0%, rgba(95, 110, 244, 0.02) 100%)',
+                  border: '1px solid rgba(95, 110, 244, 0.1)',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   borderRadius: 3,
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   '&:hover': {
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
-                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 16px rgba(95, 110, 244, 0.2)',
+                    transform: 'translateY(-4px)',
+                    background: 'linear-gradient(135deg, rgba(95, 110, 244, 0.12) 0%, rgba(95, 110, 244, 0.06) 100%)',
                   },
                   height: '100%',
                 }}
               >
+                <Box
+                  sx={{
+                    fontSize: '2.5rem',
+                    mb: 2,
+                    display: 'inline-block',
+                  }}
+                >
+                  🎮
+                </Box>
                 <Typography
                   variant="h6"
                   sx={{
-                    fontWeight: 500,
-                    mb: 2,
-                    color: 'primary.main',
+                    fontWeight: 600,
+                    mb: 1,
+                    color: '#5f6ef4',
                   }}
                 >
-                  🎮 ゲーム
+                  ゲーム
                 </Typography>
 
                 <Typography
-                  variant="body1"
+                  variant="body2"
                   color="textSecondary"
                   sx={{ lineHeight: 1.8 }}
                 >
@@ -576,30 +595,41 @@ export default async function About() {
               <Card
                 sx={{
                   p: 3,
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
-                  backgroundColor: '#fafafa',
+                  background: 'linear-gradient(135deg, rgba(2, 188, 212, 0.08) 0%, rgba(2, 188, 212, 0.02) 100%)',
+                  border: '1px solid rgba(2, 188, 212, 0.1)',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   borderRadius: 3,
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   '&:hover': {
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
-                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 16px rgba(2, 188, 212, 0.2)',
+                    transform: 'translateY(-4px)',
+                    background: 'linear-gradient(135deg, rgba(2, 188, 212, 0.12) 0%, rgba(2, 188, 212, 0.06) 100%)',
                   },
                   height: '100%',
                 }}
               >
+                <Box
+                  sx={{
+                    fontSize: '2.5rem',
+                    mb: 2,
+                    display: 'inline-block',
+                  }}
+                >
+                  🛏️
+                </Box>
                 <Typography
                   variant="h6"
                   sx={{
-                    fontWeight: 500,
-                    mb: 2,
-                    color: 'primary.main',
+                    fontWeight: 600,
+                    mb: 1,
+                    color: '#02bcd4',
                   }}
                 >
-                  🛏️ 睡眠
+                  睡眠
                 </Typography>
 
                 <Typography
-                  variant="body1"
+                  variant="body2"
                   color="textSecondary"
                   sx={{ lineHeight: 1.8 }}
                 >
@@ -612,30 +642,41 @@ export default async function About() {
               <Card
                 sx={{
                   p: 3,
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
-                  backgroundColor: '#fafafa',
+                  background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0.02) 100%)',
+                  border: '1px solid rgba(76, 175, 80, 0.1)',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   borderRadius: 3,
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   '&:hover': {
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
-                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 16px rgba(76, 175, 80, 0.2)',
+                    transform: 'translateY(-4px)',
+                    background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.12) 0%, rgba(76, 175, 80, 0.06) 100%)',
                   },
                   height: '100%',
                 }}
               >
+                <Box
+                  sx={{
+                    fontSize: '2.5rem',
+                    mb: 2,
+                    display: 'inline-block',
+                  }}
+                >
+                  🎵
+                </Box>
                 <Typography
                   variant="h6"
                   sx={{
-                    fontWeight: 500,
-                    mb: 2,
-                    color: 'primary.main',
+                    fontWeight: 600,
+                    mb: 1,
+                    color: '#4caf50',
                   }}
                 >
-                  🎵 音楽
+                  音楽
                 </Typography>
 
                 <Typography
-                  variant="body1"
+                  variant="body2"
                   color="textSecondary"
                   sx={{ lineHeight: 1.8 }}
                 >
