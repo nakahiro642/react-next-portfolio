@@ -49,6 +49,13 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f3ff 50%, #f8f9fa 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
 body {
   font-family:
     -apple-system,
@@ -62,6 +69,7 @@ body {
     sans-serif;
     color: var(--color-text-main);
     line-height: 1.8;
+    background: transparent;
 }
 
 code {

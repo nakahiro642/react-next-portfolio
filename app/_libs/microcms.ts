@@ -23,6 +23,14 @@ export type AboutProfile = {
     image?: MicroCMSImage;
 } & MicroCMSListContent;
 
+export type Portfolio = {
+    title: string;
+    description: string;
+    technologies: string[];
+    link?: string;
+    thumbnail?: MicroCMSImage;
+} & MicroCMSListContent;
+
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
     throw new Error("MICROCMS_SERVICE_DOMAIN is required");
 }
@@ -71,6 +79,18 @@ export const getAboutProfile = async (queries?: MicroCMSQueries) => {
     return await client.getList<AboutProfile>({
         endpoint: "about",
         queries: { limit: 1, ...queries },
+        customRequestInit: {
+            next: {
+                revalidate: queries?.draftKey === undefined ? 60 : 0,
+            },
+        },
+    });
+};
+
+export const getPortfolioList = async (queries?: MicroCMSQueries) => {
+    return await client.getList<Portfolio>({
+        endpoint: "portfolios",
+        queries: { limit: 100, ...queries },
         customRequestInit: {
             next: {
                 revalidate: queries?.draftKey === undefined ? 60 : 0,
