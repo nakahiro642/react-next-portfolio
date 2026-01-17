@@ -17,6 +17,7 @@ export default async function About() {
     <>
       {/* Hero Section */}
       <Box
+        component="div"
         suppressHydrationWarning
         sx={{
           position: 'relative',
