@@ -15,7 +15,6 @@ import BuildIcon from '@mui/icons-material/Build';
 import StorageIcon from '@mui/icons-material/Storage';
 import PaletteIcon from '@mui/icons-material/Palette';
 import TerminalIcon from '@mui/icons-material/Terminal';
-import { getPortfolioList } from '../_libs/microcms';
 
 interface Portfolio {
   id: string;
@@ -31,7 +30,8 @@ export default function Members() {
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
-        const { contents } = await getPortfolioList();
+        const response = await fetch('/api/portfolio');
+        const { contents } = await response.json();
         setPortfolioItems(contents || []);
       } catch (error) {
         console.error('Failed to fetch portfolio:', error);
