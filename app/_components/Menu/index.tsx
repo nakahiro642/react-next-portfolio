@@ -25,6 +25,9 @@ export default function Menu() {
 
     return (
         <div>
+        {isOpen && (
+            <div className={styles.overlay} onClick={close} />
+        )}
         <nav className={cx(styles.nav, isOpen && styles.open)}>
             <ul className={styles.items}>
                 <li>
