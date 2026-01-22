@@ -39,43 +39,76 @@
     width: 100%;
 }
 
-.button {
+.menuButton {
     display: none;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
     color: rgba(0, 0, 0, 0.87);
-    font-size: 24px;
 }
 
-.button:hover {
+.menuButton:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
 
+.hamburger {
+    display: block;
+    width: 24px;
+    height: 20px;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #1f2937;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger::before {
+    top: 2px;
+}
+
+.hamburger::after {
+    bottom: 2px;
+}
+
+.hamburger {
+    background-color: #1f2937;
+    height: 2px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+}
+
+.menuButton.active .hamburger {
+    background-color: transparent;
+}
+
+.menuButton.active .hamburger::before {
+    top: 9px;
+    transform: rotate(45deg);
+    background: linear-gradient(90deg, #5f6ef4, #02bcd4);
+}
+
+.menuButton.active .hamburger::after {
+    bottom: 9px;
+    transform: rotate(-45deg);
+    background: linear-gradient(90deg, #02bcd4, #5f6ef4);
+}
+
 @media (max-width: 640px) {
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        z-index: 998;
-        animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
     .nav {
         display: none;
     }
@@ -88,98 +121,108 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 245, 250, 0.98) 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         color: rgba(0, 0, 0, 0.87);
-        padding: 32px 20px;
+        padding: 0;
         z-index: 999;
-        backdrop-filter: blur(10px);
-        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
-        animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         overflow-y: auto;
+        animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    @keyframes slideIn {
+    @keyframes slideUp {
         from {
-            transform: translateX(100%);
+            transform: translateY(100%);
             opacity: 0;
         }
         to {
-            transform: translateX(0);
+            transform: translateY(0);
             opacity: 1;
         }
     }
 
     .items {
         flex-direction: column;
-        gap: 12px;
-        margin-top: 16px;
+        gap: 0;
         list-style: none;
         padding: 0;
+        margin: 0;
+        width: 100%;
     }
 
     .items li {
         width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    .items li:last-child {
+        border-bottom: none;
     }
 
     .items li a {
-        font-size: 18px;
+        font-size: 16px;
         padding: 20px 24px;
-        border-radius: 12px;
-        display: block;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 600;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
         position: relative;
-        overflow: hidden;
-        background-color: rgba(95, 110, 244, 0.1);
         color: #1f2937;
+        background-color: transparent;
     }
 
     .items li a::before {
         content: '';
         position: absolute;
+        left: 0;
         top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, #5f6ef4, #02bcd4);
-        opacity: 0.15;
-        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: -1;
-    }
-
-    .items li a:hover {
-        color: #5f6ef4;
-        background-color: rgba(95, 110, 244, 0.18);
-        transform: translateX(8px);
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #5f6ef4, #02bcd4);
+        transform: scaleY(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: center;
     }
 
     .items li a:hover::before {
-        left: 0;
+        transform: scaleY(1);
     }
 
     .items li a::after {
         display: none;
     }
 
-    .button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .items li a:active {
+        background-color: rgba(95, 110, 244, 0.08);
     }
 
-    .close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background-color: rgba(95, 110, 244, 0.15);
-        border-radius: 8px;
-        padding: 10px;
-        transition: all 0.2s ease;
+    .items li a:hover {
+        background-color: rgba(95, 110, 244, 0.06);
         color: #5f6ef4;
+        padding-left: 28px;
     }
 
-    .close:hover {
-        background-color: rgba(95, 110, 244, 0.25);
-        transform: rotate(90deg);
+    .menuButton {
+        display: flex;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 998;
+        animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 }
