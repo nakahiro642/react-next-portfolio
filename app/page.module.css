@@ -11,33 +11,51 @@
 
 /* CTA Section */
 .ctaSection {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
-  padding: 48px 40px;
-  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+  padding: 64px 48px;
+  border-radius: 12px;
   text-align: center;
-  border: 1px solid rgba(99, 102, 241, 0.1);
-  box-shadow: 0px 4px 20px rgba(99, 102, 241, 0.08);
-  transition: all 0.3s ease;
-  margin-bottom: 48px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0px 8px 24px rgba(99, 102, 241, 0.1), 0px 0px 1px rgba(99, 102, 241, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
 }
 
 .ctaSection:hover {
-  box-shadow: 0px 8px 32px rgba(99, 102, 241, 0.12);
+  box-shadow: 0px 16px 40px rgba(99, 102, 241, 0.15), 0px 0px 1px rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
 }
 
 .ctaTitle {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
-  margin-bottom: 16px;
-  color: #333;
+  margin-bottom: 20px;
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .ctaDescription {
   font-size: 16px;
-  line-height: 1.6;
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto 24px auto;
+  line-height: 1.8;
+  color: #555;
+  max-width: 640px;
+  margin: 0 auto 32px auto;
+  letter-spacing: 0.2px;
 }
 
 .buttonGroup {
@@ -45,14 +63,16 @@
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
 
-@media (max-width: 640px) {
-  .buttonGroup {
-    flex-direction: column;
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .ctaSection {
-    padding: 24px 16px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

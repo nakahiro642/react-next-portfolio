@@ -545,11 +545,12 @@ export default function About() {
                     mb: 2,
                   }}
                 >
-                  HTMLやcssを学び、基礎的なWeb制作スキルを習得。
+                  HTMLやcssを学び、基礎的なWeb制作スキルを習得。C言語も基礎的に理解しています。
                 </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   <Chip label="HTML" size="small" />
                   <Chip label="CSS" size="small" />
+                  <Chip label="C言語" size="small" />
                 </Box>
               </Card>
             </Box>

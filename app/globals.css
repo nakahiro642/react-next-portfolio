@@ -21,20 +21,23 @@
   "Fira Mono", "Droid Sans Mono",
   "Courier New", monospace;
 
---color-text-main: #333;
---color-text-sub: #999;
+--color-text-main: #1a1a2e;
+--color-text-sub: #666;
 --color-text-unpainted: #fff;
 --color-text-error: #f33;
 --color-bg-main: #fff;
---color-bg-sub: #f3f3f3;
+--color-bg-sub: #f8f9fa;
 --color-bg-code: #fafafa;
 --color-bg-painted: #333;
 --color-border-dark: #333;
---color-border: #bdd;
+--color-border: #e0e0e0;
 --color-border-light: #f3f3f3;
 --color-current: #eee;
 --color-button-primary: #333;
---border-radius: 4px;
+--color-accent-primary: #6366f1;
+--color-accent-secondary: #ec4899;
+--color-accent-tertiary: #14b8a6;
+--border-radius: 8px;
 }
 
 * {
@@ -50,7 +53,7 @@ body {
 }
 
 html {
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f3ff 50%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f3ff 30%, #f5f0ff 70%, #f8f9fa 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-height: 100vh;
@@ -70,6 +73,7 @@ body {
     color: var(--color-text-main);
     line-height: 1.8;
     background: transparent;
+    letter-spacing: 0.3px;
 }
 
 code {

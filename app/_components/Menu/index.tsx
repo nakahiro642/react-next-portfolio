@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cx from "classnames";
 import styles from "./index.module.css";
 
@@ -10,6 +10,19 @@ export default function Menu() {
     const [isOpen, setOpen] = useState<boolean>(false);
     const open = () => setOpen(true);
     const close = () => setOpen(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isOpen]);
+
     return (
         <div>
         <nav className={cx(styles.nav, isOpen && styles.open)}>
