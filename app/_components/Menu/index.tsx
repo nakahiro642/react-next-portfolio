@@ -36,7 +36,7 @@ export default function Menu() {
                     <Link href="/about" onClick={close}>プロフィール</Link>
                 </li>
                 <li>
-                    <Link href="/members" onClick={close}>作品紹介</Link>
+                    <Link href="/portfolio" onClick={close}>作品紹介</Link>
                 </li>
                 <li>
                     <Link href="/contact" onClick={close}>お問い合わせ</Link>

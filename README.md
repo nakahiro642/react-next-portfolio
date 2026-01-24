@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Read me
 
-## Getting Started
+# About Me 
 
-First, run the development server:
+サイトURL: https://react-next-portfolio-flame.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js、React、TypeScriptを使用した個人ポートフォリオサイトです。Microcmsをヘッドレスカテゴリとして活用し、プロフィール、作品紹介、趣味などのコンテンツを動的に管理しています。おしゃれなマテリアルデザインを採用し、PC・スマートフォン両デバイスに完全対応した、レスポンシブなWebサイトとなっています。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 課題の紹介
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## TOP
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- グラデーション背景を使用したヒーロー section で視覚的インパクトを強化
+- 複数セクションで作品紹介、プロフィールへの導線を設計
 
-## Learn More
+## 自己紹介ページ
 
-To learn more about Next.js, take a look at the following resources:
+- Microcmsで管理するプロフィール情報を動的に表示
+- フロントエンド、デザイン、ツール・環境ごとにスキルを分類し、視覚的に整理
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 作品紹介ページ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Microcmsの「portfolios」エンドポイントから作品データを取得・表示
+- グリッドレイアウトで複数の作品をレスポンシブに配置
+- 各作品にリンク付きで詳細情報を提供
 
-## Deploy on Vercel
+## お問い合わせページ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- フォーム送信機能により、訪問者からの問い合わせを受け付け
+- バリデーション機能で入力品質を確保
+- ユーザーフレンドリーなUI設計
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 一番見てほしいところ
+
+- **スマートフォンメニューの実装**: マテリアルな高級感のあるメニューUI。ハンバーガーボタンが変形し、ボタンクリック時にリップルエフェクトが表示される
+- **レスポンシブ対応**: PC版と異なるスマートフォン専用レイアウト。メニューは2×2グリッドで大きく配置し、タッチ操作を考慮した設計
+- **Microcms連携**: プロフィール、作品紹介、趣味など複数のコンテンツをMicrocmsで一元管理し、APIで動的に取得・表示
+
+# 力を入れた点
+
+## 実装面
+
+- **Next.jsのサーバーコンポーネント活用**: SSRでデータ取得を実装し、パフォーマンスとSEO対策を両立
+- **Microcms API連携**: 複数エンドポイント（about、hobbies、portfolios）を組み合わせ、柔軟なコンテンツ管理を実現
+- **TypeScriptの型定義**: Member、AboutProfile、Portfolio、Hobbyなど各データ型を厳密に定義し、開発効率と保守性を向上
+
+## デザイン面
+
+- **マテリアルデザイン**: グラデーション、角丸ボタン、シャドウエフェクトを活用した洗練された見た目
+- **スマートフォン最適化**: メニューのボトムアップアニメーション、クリックエフェクト、黒オーバーレイなど、直感的で心地よい操作感を実現

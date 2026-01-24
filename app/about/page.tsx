@@ -489,7 +489,7 @@ export default function About() {
                   }}
                 >
                   <CodeIcon fontSize="small" />
-                  最新のWeb技術
+                  取り組み中の技術
                 </Typography>
                 <Typography
                   variant="body2"
@@ -535,7 +535,7 @@ export default function About() {
                   }}
                 >
                   <CodeIcon fontSize="small" />
-                  スキル・技術
+                  習得した技術
                 </Typography>
                 <Typography
                   variant="body2"
@@ -635,29 +635,6 @@ export default function About() {
                     >
                       {hobby.description}
                     </Typography>
-
-                    {hobby.image && (
-                      <Box
-                        sx={{
-                          mt: 2,
-                          display: 'flex',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img
-                          src={hobby.image.url}
-                          alt={hobby.name}
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                            maxHeight: '200px',
-                            objectFit: 'cover',
-                            borderRadius: '8px',
-                          }}
-                          suppressHydrationWarning
-                        />
-                      </Box>
-                    )}
                   </Card>
                 </Box>
               );
