@@ -36,6 +36,11 @@ export type Hobby = {
     image?: MicroCMSImage;
 } & MicroCMSListContent;
 
+export type SiteIcon = {
+    name: string;
+    icon: MicroCMSImage;
+} & MicroCMSListContent;
+
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
     throw new Error("MICROCMS_SERVICE_DOMAIN is required");
 }
@@ -129,6 +134,27 @@ export const getHobbyList = async (queries?: MicroCMSQueries): Promise<MicroCMSL
             totalCount: 0,
             offset: 0,
             limit: queries?.limit ?? 0,
+        };
+    }
+};
+
+export const getSiteIcon = async (queries?: MicroCMSQueries): Promise<MicroCMSListResponse<SiteIcon>> => {
+    try {
+        return await client.getList<SiteIcon>({
+            endpoint: "site-icon",
+            queries: { limit: 1, ...queries },
+            customRequestInit: {
+                next: {
+                    revalidate: queries?.draftKey === undefined ? 60 : 0,
+                },
+            },
+        });
+    } catch {
+        return {
+            contents: [],
+            totalCount: 0,
+            offset: 0,
+            limit: 1,
         };
     }
 };
