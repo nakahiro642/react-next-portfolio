@@ -1,12 +1,5 @@
 import { NextResponse } from 'next/server';
 
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-}
-
 export async function GET() {
   try {
     // microCMS から記事を取得
