@@ -23,6 +23,7 @@ export default function Home() {
           </p>
           <div className={styles.buttonGroup}>
             <ButtonLink href="/about">プロフィールへ</ButtonLink>
+            <ButtonLink href="/blog">記録へ</ButtonLink>
             <ButtonLink href="/contact">お問い合わせ</ButtonLink>
           </div>
         </div>

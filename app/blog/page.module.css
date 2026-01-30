@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.postCard {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color, #e0e0e0);
+  transition: all 0.3s ease;
+}
+
+.postCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.postTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.postDate {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.postContent {
+  font-size: 1rem;
+  line-height: 1.8;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.noPosts {
+  text-align: center;
+  padding: 3rem 1rem;
+  opacity: 0.6;
+}

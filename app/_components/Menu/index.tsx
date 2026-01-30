@@ -39,6 +39,9 @@ export default function Menu() {
                     <Link href="/portfolio" onClick={close}>作品紹介</Link>
                 </li>
                 <li>
+                    <Link href="/blog" onClick={close}>記録</Link>
+                </li>
+                <li>
                     <Link href="/contact" onClick={close}>お問い合わせ</Link>
                 </li>
             </ul>
