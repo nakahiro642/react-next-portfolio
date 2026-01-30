@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Hero from '@/app/_components/Hero';
 import Sheet from '@/app/_components/Sheet';
 import styles from './page.module.css';
@@ -12,42 +11,42 @@ interface BlogPost {
   date: string;
 }
 
+// ブログ記事をここに直接書き込む
+const blogPosts: BlogPost[] = [
+  {
+    id: '1',
+    title: '私が考えていること',
+    content: '日々学校に通っていて感じることは、自分から行動を起こさないと成長できないということ。何事も積極性が大事だと思い知らされています。残り短い学生生活の中で、自分をレベルアップさせていきます。そして、将来のキャリアに向けて、今からできることに全力で取り組み、後悔のない選択をしていきたいです。',
+    date: '2026-01-31',
+  },
+  {
+    id: '2',
+    title: 'CSS との向き合い方',
+    content: 'CSS Modules を使い始めて 2 ヶ月。スタイルの競合がなくなるだけで、こんなにストレスが減るんだと驚きました。BEM や OOCSS などの命名規則も良いですが、CSS Modules はそもそもスコープが自動的に隔離されるので、気をつけることが少なくなります。これからのプロジェクトではずっと使うと思います。',
+    date: '2026-01-31',
+  },
+  {
+    id: '3',
+    title: 'React Server Components について考える',
+    content: 'React Server Components について学んでいます。サーバーサイドでコンポーネントをレンダリングし、クライアント側の JavaScript を減らせるというコンセプトは本当に面白い。パフォーマンスの向上だけでなく、セキュリティ面でも利点があるんだなと気づきました。今後のプロジェクトで試してみたいです。',
+    date: '2026-01-31',
+  },
+];
+
 export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/blog');
-        const { contents } = await response.json();
-        setPosts(contents || []);
-      } catch (error) {
-        console.error('Failed to fetch blog posts:', error);
-        setPosts([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
   return (
     <>
       {/* Hero Section */}
       <Hero
         title="Blog"
-        sub="私が思っていること"
+        sub="私が考えていること"
       />
 
       <Sheet>
         <div className={styles.container}>
-          {isLoading ? (
-            <div className={styles.noPosts}>読み込み中...</div>
-          ) : posts.length > 0 ? (
+          {blogPosts.length > 0 ? (
             <div className={styles.postsContainer}>
-              {posts.map((post) => (
+              {blogPosts.map((post) => (
                 <article key={post.id} className={styles.postCard}>
                   <h2 className={styles.postTitle}>{post.title}</h2>
                   <time className={styles.postDate}>{post.date}</time>
